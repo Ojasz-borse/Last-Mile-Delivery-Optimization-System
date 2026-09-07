@@ -3,7 +3,10 @@ package com.delivery.lastmile.deliverypartner;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping ("/api/delivery-partners")
@@ -18,5 +21,15 @@ public class DeliveryPartnerController
         return deliveryPartnerService.createDelivery(request);
 
     }
+
+    @GetMapping
+
+    public ResponseEntity<List<DeliveryPartnerResponse>> getAllDeliver(){
+        List<DeliveryPartnerResponse> response = deliveryPartnerService.getAllPartner();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
 
 }
