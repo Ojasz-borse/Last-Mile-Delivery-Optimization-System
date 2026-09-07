@@ -1,7 +1,10 @@
 package com.delivery.lastmile.order;
 
+import com.delivery.lastmile.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,34 @@ public class OrderSerivce {
                 .deliveryLongitude(savedOrder.getDeliverylongitude())
                 .status(savedOrder.getStatus())
                 .build();
+
+
+    }
+    public List<OrderResponse> getAllOrders(){
+        return orderRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+public OrderResponse getOrderById(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException("Order with id" + id + "not found"));
+
+        return toResponse( order);
+}
+
+    private OrderResponse toResponse(Order order){
+       return OrderResponse.builder()
+               .id(order.getId())
+               .id(order.getId())
+               .customerName(order.getCustomerName())
+               .pickupAddress(order.getPickupAddress())
+               .deliveryAddress(order.getDeliveryAddress())
+               .deliveryLatitude(order.getDeliveryLatitude())
+               .deliveryLongitude(order.getDeliverylongitude())
+               .status(order.getStatus())
+               .build();
+
 
 
     }
