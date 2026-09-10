@@ -48,15 +48,15 @@ public OrderResponse getOrderById(Long id) {
         return toResponse( order);
 }
 
-    private OrderResponse toResponse(Order order){
+    public OrderResponse toResponse(Order order){
        return OrderResponse.builder()
-               .id(order.getId())
                .id(order.getId())
                .customerName(order.getCustomerName())
                .pickupAddress(order.getPickupAddress())
                .deliveryAddress(order.getDeliveryAddress())
                .deliveryLatitude(order.getDeliveryLatitude())
                .deliveryLongitude(order.getDeliverylongitude())
+               .deliveryPartnerId(order.getDeliveryPartnerId())
                .status(order.getStatus())
                .build();
 

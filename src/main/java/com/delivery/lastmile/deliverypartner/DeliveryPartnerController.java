@@ -32,4 +32,11 @@ public class DeliveryPartnerController
     }
 
 
+    @GetMapping("/{id}")
+    public DeliveryPartnerResponse getDeliveryPartnerById(
+            @PathVariable Long id) {
+
+        return deliveryPartnerService.getDeliveryPartnerById(id);
+    }
+
 }

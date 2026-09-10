@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @RequiredArgsConstructor
 public class DeliveryPartnerService {
@@ -49,6 +51,20 @@ public class DeliveryPartnerService {
         }
         return partnerResponseList;
     }
+
+
+
+
+    public DeliveryPartnerResponse getDeliveryPartnerById(Long id) {
+
+        DeliveryPartner partner = deliveryPartnerRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Delivery partner not found")
+                );
+
+        return toResponse(partner);
+    }
+
 
 }
 

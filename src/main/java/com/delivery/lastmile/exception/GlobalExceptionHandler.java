@@ -39,4 +39,25 @@ public class GlobalExceptionHandler {
 
         return errors;
     }
+
+    @ExceptionHandler(NoAvailableDeliveryPartnerException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleNoAvailablePartner(
+            NoAvailableDeliveryPartnerException exception) {
+
+        return Map.of(
+                "message",
+                exception.getMessage()
+        );
+    }
+    @ExceptionHandler(OrderAlreadyAssignedException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleOrderAlreadyAssigned(
+            OrderAlreadyAssignedException exception) {
+
+        return Map.of(
+                "message",
+                exception.getMessage()
+        );
+    }
 }

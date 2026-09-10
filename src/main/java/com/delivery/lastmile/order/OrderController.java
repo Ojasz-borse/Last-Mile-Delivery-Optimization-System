@@ -19,7 +19,7 @@ public class OrderController {
     public OrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request){
     return orderSerivce.createOrder(request);
     }
-
+    @GetMapping
     public List<OrderResponse>getAllOrders(){
         return orderSerivce.getAllOrders();
     }

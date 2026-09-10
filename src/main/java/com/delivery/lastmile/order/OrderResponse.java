@@ -1,5 +1,6 @@
 package com.delivery.lastmile.order;
 
+import com.delivery.lastmile.deliverypartner.DeliveryPartner;
 import lombok.Getter;
 import lombok.Builder;
 
@@ -20,5 +21,8 @@ public class OrderResponse {
 
     private OrderStatus status;
 
+    private Long deliveryPartnerId;
+
+    
 
 }
