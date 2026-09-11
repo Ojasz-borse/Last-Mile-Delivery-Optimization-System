@@ -60,4 +60,15 @@ public class GlobalExceptionHandler {
                 exception.getMessage()
         );
     }
+
+    @ExceptionHandler(DeliveryPartnerNotFoundException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleDeliveryPartnerNotFound(
+            NoAvailableDeliveryPartnerException exception) {
+
+        return Map.of(
+                "message",
+                exception.getMessage()
+        );
+    }
 }

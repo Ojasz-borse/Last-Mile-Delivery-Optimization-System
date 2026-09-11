@@ -65,6 +65,19 @@ public class DeliveryPartnerService {
         return toResponse(partner);
     }
 
+    public DeliveryPartnerResponse updateLocation(Long id, UpdateLocationRequest request){
+        DeliveryPartner partner =
+                deliveryPartnerRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Delivery partner not found"
+                                )
+                        );
+partner.setCurrentLatitude(request.getLatitude());
+partner.setCurrentLongitude(request.getLongitude());
+DeliveryPartner savedPartner = deliveryPartnerRepository.save(partner);
+return  toResponse(savedPartner);
+    }
 
 }
 

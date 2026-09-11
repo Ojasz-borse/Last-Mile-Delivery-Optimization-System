@@ -9,6 +9,7 @@ import com.delivery.lastmile.exception.OrderNotFoundException;
 import com.delivery.lastmile.order.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.delivery.lastmile.routing.DistanceService;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class AllocationService {
     private final OrderRepository orderRepository;
     private final DeliveryPartnerRepository deliveryPartnerRepository;
     private final OrderSerivce orderService;
-
+    private final DistanceService distanceService;
     public OrderResponse assignOrder(Long orderId) {
 
         // 1. Find the order
@@ -84,13 +85,12 @@ public class AllocationService {
 
         for (DeliveryPartner partner : partners) {
 
-            double distance = calculateDistance(
+            double distance = distanceService.calculateDistance(
                     order.getDeliveryLatitude(),
-                    order.getDeliverylongitude(),
+                    order.getDeliveryLatitude(),
                     partner.getCurrentLatitude(),
                     partner.getCurrentLongitude()
             );
-
             if (distance < shortestDistance) {
 
                 shortestDistance = distance;
@@ -101,34 +101,5 @@ public class AllocationService {
         return nearestPartner;
     }
 
-    private double calculateDistance(
-            double latitude1,
-            double longitude1,
-            double latitude2,
-            double longitude2) {
 
-        double earthRadius = 6371;
-
-        double latDistance =
-                Math.toRadians(latitude2 - latitude1);
-
-        double lonDistance =
-                Math.toRadians(longitude2 - longitude1);
-
-        double a =
-                Math.sin(latDistance / 2)
-                        * Math.sin(latDistance / 2)
-                        + Math.cos(Math.toRadians(latitude1))
-                        * Math.cos(Math.toRadians(latitude2))
-                        * Math.sin(lonDistance / 2)
-                        * Math.sin(lonDistance / 2);
-
-        double c =
-                2 * Math.atan2(
-                        Math.sqrt(a),
-                        Math.sqrt(1 - a)
-                );
-
-        return earthRadius * c;
-    }
 }

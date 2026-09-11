@@ -38,5 +38,10 @@ public class DeliveryPartnerController
 
         return deliveryPartnerService.getDeliveryPartnerById(id);
     }
+  @PutMapping("/{id}/location")
+    public DeliveryPartnerResponse updateLocation(@PathVariable Long id ,@Valid @RequestBody UpdateLocationRequest request )
+  {
+      return deliveryPartnerService.updateLocation(id, request);
 
+  }
 }
