@@ -20,5 +20,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    //adding delivery partner to order
+    private Long deliveryPartnerId;
 
 }
